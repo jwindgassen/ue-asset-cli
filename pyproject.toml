@@ -1,0 +1,43 @@
+[project]
+name = "ue_asset_cli"
+version = "0.1.0"
+description = "A linux-compatible command-line interface to download Assets from the Epic Game Store Marketplace"
+requires-python = ">= 3.9"
+dependencies = [
+    "requests",
+    "tqdm",
+    "keyring",
+]
+license = { text="MIT" }
+authors = [
+    {name = "Jonathan Windgassen", email = "j.windgassen@fz-juelich.de"},
+]
+readme = "README.md"
+keywords = ["Unreal Engine", "Marketplace", "EGS", "EOS", "Epic Games"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Repository = "https://github.com/jwindgassen/ue-asset-cli"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+ue-assets = "ue_asset_cli.cli:main"
