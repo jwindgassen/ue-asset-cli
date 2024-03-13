@@ -1,4 +1,4 @@
-name: Upload Python Package to PyPI and create a GitHub Release
+name: GitHub Release and PyPI Publish
 
 on:
   push:
@@ -31,11 +31,11 @@ jobs:
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release create "v$(hatch version)" --repo '${{ github.repository }}' --generate-notes --latest
+      run: gh release create "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')" --repo '${{ github.repository }}' --generate-notes --latest
     - name: Upload artifacts to GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload "v$(hatch version)" dist/** --repo '${{ github.repository }}'
+      run: gh release upload "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')" dist/** --repo '${{ github.repository }}'
 
 
   publish:
@@ -58,5 +58,3 @@ jobs:
       run: python -m build
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1.8
-      with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
