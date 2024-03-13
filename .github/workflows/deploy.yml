@@ -29,8 +29,7 @@ jobs:
     - name: Build package
       run: python -m build
     - name: Test
-      run: |
-        echo "v$(ls dist/*.whl | sed -r 's/.*-(\S+)-py3.*/\1/')"
+      run: python -c "import ue_asset_cli as ue; print(ue.__version__)"
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
