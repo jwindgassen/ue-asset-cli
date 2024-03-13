@@ -30,6 +30,7 @@ jobs:
       run: python -m build
     - name: Test
       run: |
+        ls
         ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)'
         echo "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')"
     - name: Create GitHub Release
