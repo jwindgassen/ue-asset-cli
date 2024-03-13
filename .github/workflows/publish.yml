@@ -4,8 +4,10 @@
 name: Upload Python Package to PyPI
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: 
+      - main
+      - ci/cd
 
 permissions:
   contents: read
@@ -29,3 +31,5 @@ jobs:
       run: python -m build
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1.8
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
