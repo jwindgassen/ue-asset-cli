@@ -28,6 +28,10 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
+    - name: Test
+      run: |
+        ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)'
+        echo "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')"
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
