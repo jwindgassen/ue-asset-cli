@@ -28,16 +28,14 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
-    - name: Test
-      run: python -c "import ue_asset_cli as ue; print(ue.__version__)"
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release create "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')" --repo '${{ github.repository }}' --generate-notes --latest
+      run: gh release create "v$(python -c 'import ue_asset_cli as ue; print(ue.__version__)')" --repo '${{ github.repository }}' --generate-notes --latest
     - name: Upload artifacts to GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh release upload "v$(ls dist/*.whl | grep -Po '(\d+\.\d+\.\d+)')" dist/** --repo '${{ github.repository }}'
+      run: gh release upload "v$(python -c 'import ue_asset_cli as ue; print(ue.__version__)')" dist/** --repo '${{ github.repository }}'
 
 
   publish:
