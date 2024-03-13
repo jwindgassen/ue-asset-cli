@@ -30,7 +30,7 @@ jobs:
       run: python -m build
     - name: Test
       run: |
-        echo "v$(ls dist/*.whl | sed -E 's/ue_asset_cli-(\S+)-py3/\1/')"
+        echo "v$(ls dist/*.whl | sed -r 's/.*-(\S+)-.*/\1/')"
     - name: Create GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
