@@ -1,4 +1,4 @@
-name: GitHub Release and PyPI Publish
+name: Publish to PyPI on release
 
 on:
   push:
@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        fetch-tags: true
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -25,7 +27,5 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
-    - name: Test
-      run: ls dist
-    # - name: Publish package
-    #   uses: pypa/gh-action-pypi-publish@release/v1.8
+    - name: Publish package
+      uses: pypa/gh-action-pypi-publish@release/v1.8
