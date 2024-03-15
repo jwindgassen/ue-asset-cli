@@ -1,6 +1,8 @@
 name: GitHub Release and PyPI Publish
 
-on: workflow_dispatch
+on:
+  push:
+    branches: feature/ci-cd
   
 permissions:
   contents: read
