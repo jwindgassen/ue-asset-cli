@@ -11,7 +11,7 @@ KEYRING_NAME = "ue_asset_cli"
 CLIENT_ID = "34a02cf8f4414e29b15921876da36f9a"
 CLIENT_SECRET = "daafbccc737745039dffe53d94fc76cf"
 
-REDIRECT_URL = f"https://www.epicgames.com/id/api/redirect?clientId={CLIENT_ID}&responseType=code"
+REDIRECT_URL = "https://www.epicgames.com/id/login?redirectUrl=https%3A//www.epicgames.com/id/api/redirect%3FclientId%3D34a02cf8f4414e29b15921876da36f9a%26responseType%3Dcode"
 TOKEN_URL = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token"
 VERIFY_URL = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/verify"
 
@@ -39,6 +39,7 @@ def _get_authentication_code(method: AuthenticationMethod) -> str:
     if method == AuthenticationMethod.PROMPT:
         return input("Autehntication Code: ")
 
+
 def _login_with_authentication_code(session: Session, authentication_code: str) -> dict | None:
     data = {
         "grant_type": "authorization_code",
@@ -56,6 +57,7 @@ def _login_with_authentication_code(session: Session, authentication_code: str) 
         log.error("Could not login with Authentication Code")
         return None
 
+
 def _verify_authentication_token(session: Session, token: str) -> dict | None:
     session.headers["Authorization"] = f"bearer {token}"
     user_data = session.get(VERIFY_URL)
@@ -66,6 +68,7 @@ def _verify_authentication_token(session: Session, token: str) -> dict | None:
     else:
         log.error("Could not verify Authentication Token")
         return None
+
 
 def login(authentication_method: AuthenticationMethod = AuthenticationMethod.BROWSER) -> tuple[Session, UserData]:
     session = Session()
